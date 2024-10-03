@@ -32,7 +32,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) {
         User reqUser = userService.findUserByJwt(jwt);
-        System.out.println("aaaaaaaaaaaaaaaaaaa");
         if (reqUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // Respond with 401 Unauthorized
         }

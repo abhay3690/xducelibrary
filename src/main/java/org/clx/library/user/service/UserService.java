@@ -1,5 +1,6 @@
 package org.clx.library.user.service;
 
+import org.clx.library.user.exception.UserException;
 import org.clx.library.user.model.User;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,11 @@ import java.util.Optional;
 public interface UserService {
     public User registerUser(User user, Integer id);
     public User findUserByJwt(String jwt);
+    public User findUserById(Integer userId) throws UserException;
+    public User updateUser(User user, Integer userId) throws UserException;
+    public List<User> searchUser(String query);
 
-    List<User> getAllUsers();
-    Optional<User> getUserById(Integer id);
-    User createUser(User user, Integer id);
-    void deleteUser(Integer id);
-    Optional<User> getUserByEmail(String email);
+
 
 
 }

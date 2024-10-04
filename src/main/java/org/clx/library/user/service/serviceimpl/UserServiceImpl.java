@@ -2,6 +2,7 @@ package org.clx.library.user.service.serviceimpl;
 
 import lombok.RequiredArgsConstructor;
 import org.clx.library.user.config.JwtProvider;
+import org.clx.library.user.exception.UserException;
 import org.clx.library.user.model.User;
 import org.clx.library.user.repository.UserRepository;
 import org.clx.library.user.service.UserService;
@@ -39,8 +40,6 @@ public class UserServiceImpl implements UserService {
 
         return savedUser;
     }
-
-
     @Override
     public User findUserByJwt(String jwt) {
         logger.info("Finding user by JWT: {}", jwt);
@@ -54,40 +53,44 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
-
     @Override
-    public List<User> getAllUsers() {
-        // Retrieve all users from the database
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Optional<User> getUserById(Integer id) {
-        // Retrieve a user by ID from the database
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public User createUser(User user, Integer id) {
-
-        return userRepository.save(user);
-    }
-
-    @Override
-    public void deleteUser(Integer id) {
-        // Check if the user exists before deleting
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("User not found with id: " + id);
+    public User findUserById(Integer userId) throws UserException {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            return user.get();
         }
+        throw new UserException("User not exist with userId" + userId);
     }
 
+
+
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        // Retrieve a user by email from the database
-        return null;
-//        return userRepository.findByEmail(email);
+    public User updateUser(User user, Integer userId) throws UserException {
+        Optional<User> user1 = userRepository.findById(userId);
+        if (user1.isEmpty()) {
+            throw new UserException("User does not exist with id " + userId);
+        }
+        User oldUser = user1.get();
+        if (user.getName() != null) {
+            oldUser.setName(user.getName());
+        }
+        if (user.getContactNumber() != null) {
+            oldUser.setContactNumber(user.getContactNumber());
+        }
+        if (user.getEmail() != null) {
+            oldUser.setEmail(user.getEmail());
+        }
+        if (user.getGender() != null) {
+            oldUser.setGender(user.getGender());
+        }
+        if (user.getCollegeName() != null) {
+            oldUser.setCollegeName(user.getCollegeName());
+        }
+        return userRepository.save(oldUser);
+    }
+    @Override
+    public List<User> searchUser(String query) {
+
+        return userRepository.searchUser(query);
     }
 }

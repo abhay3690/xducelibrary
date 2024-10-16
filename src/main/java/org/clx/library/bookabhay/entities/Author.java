@@ -17,8 +17,8 @@ public class Author {
     private Integer id;
     private String name;
     private String country;
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Book> books;
 }
 

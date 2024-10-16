@@ -3,9 +3,10 @@ package org.clx.library.user.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.clx.library.bookabhay.entities.Book;
+import org.clx.library.book.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "users") // Use plural for table naming convention
 public class User {
     @Id
@@ -27,6 +29,7 @@ public class User {
     private String email;
     private String gender;
     private String password;
+    private String status;
     @ManyToMany
     @JsonIgnore
     private List<Book> savedPost = new ArrayList<>();

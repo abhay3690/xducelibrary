@@ -1,11 +1,12 @@
 package org.clx.library.user.service;
 
+import org.clx.library.user.dto.LibraryResponse;
+import org.clx.library.user.dto.UserRequest;
 import org.clx.library.user.exception.UserException;
 import org.clx.library.user.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface UserService {
@@ -16,6 +17,5 @@ public interface UserService {
     public List<User> searchUser(String query);
 
 
-
-
+    LibraryResponse registerUser(UserRequest userRequest);
 }

@@ -1,6 +1,8 @@
 package org.clx.library.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.clx.library.user.dto.LibraryResponse;
+import org.clx.library.user.dto.UserRequest;
 import org.clx.library.user.exception.UserException;
 import org.clx.library.user.model.User;
 import org.clx.library.user.repository.UserRepository;
@@ -31,6 +33,10 @@ public class UserController {
     public User getUserById(@PathVariable("userid") Integer userId) throws UserException {
         User user = userService.findUserById(userId);
         return user;
+    }
+    @PostMapping("/api/users/libraryres")
+    public LibraryResponse libraryResponse(@RequestBody UserRequest userRequest){
+        return userService.registerUser(userRequest);
     }
 
 }

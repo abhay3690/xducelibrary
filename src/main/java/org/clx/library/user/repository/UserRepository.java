@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
-    public User findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+    User findByEmail(String email);
+
+    Boolean existsByEmail(String email);  // Fixed typo here
+
     @Query("select u from User u where u.name LIKE %:query% OR u.email LIKE %:query%")
-    public List<User> searchUser(@Param("query") String query);
+    List<User> searchUser(@Param("query") String query);
 }

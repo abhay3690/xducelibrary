@@ -1,6 +1,6 @@
 package org.clx.library.bookabhay.entities;
 
-enum BookStatus {
+public enum BookStatus {
     AVAILABLE,
     BORROWED
 }
